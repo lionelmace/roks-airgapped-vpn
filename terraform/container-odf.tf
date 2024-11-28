@@ -5,7 +5,7 @@ resource "ibm_container_addons" "addons" {
   resource_group_id = local.resource_group_id
   addons {
     name            = "openshift-data-foundation"
-    version         = "4.13.0"
+    version         = "4.16.0"
     parameters_json = <<PARAMETERS_JSON
     {
         "osdSize":"200Gi",
