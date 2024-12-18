@@ -3,11 +3,11 @@
 ##############################################################################
 
 terraform {
-  required_version = ">=1.6"
+  required_version = ">=1.9"
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "1.72.0-beta0"
+      version = "1.73.0"
     }
     http-full = {
       source = "salrashid123/http-full"
