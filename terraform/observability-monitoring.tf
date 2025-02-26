@@ -31,6 +31,10 @@ variable "sysdig_enable_platform_metrics" {
   default     = false
 }
 
+variable "sysdig_use_vpe" {
+  default = true
+}
+
 # Monitoring Resource
 ##############################################################################
 
@@ -55,27 +59,19 @@ output "cloud_monitoring_crn" {
 
 # VPE (Virtual Private Endpoint) for Monitoring
 ##############################################################################
-resource "ibm_is_virtual_endpoint_gateway" "vpe_monitoring" {
-  for_each = { for target in local.endpoints : target.name => target if tobool(var.sysdig_use_vpe) }
-
-  name           = "${local.basename}-monitoring-vpe"
-  resource_group = local.resource_group.id
-  vpc            = ibm_is_vpc.vpc.id
-
-  target {
-    crn           = module.cloud_monitoring.crn
-    resource_type = "provider_cloud_service"
-  }
-
-  # one Reserved IP for per zone in the VPC
-  dynamic "ips" {
-    for_each = { for subnet in ibm_is_subnet.subnet : subnet.id => subnet }
-    content {
-      subnet = ips.key
-      name   = "${ips.value.name}-ip-monitoring"
+module "vpes" {
+  source            = "terraform-ibm-modules/vpe-gateway/ibm"
+  region            = var.region
+  prefix            = "vpe"
+  vpc_name          = ibm_is_vpc.vpc.name
+  vpc_id            = ibm_is_vpc.vpc.id
+  subnet_zone_list  = var.subnet_ids
+  resource_group_id = local.resource_group_id
+  cloud_services = [
+    {
+      service_name = "sysdig-monitoring"
     }
-  }
-  tags = var.tags
+  ]
 }
 
 ## IAM
