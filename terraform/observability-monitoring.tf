@@ -68,9 +68,14 @@ module "vpes" {
   # subnet_zone_list  = var.subnet_list
   subnet_zone_list  = ibm_is_subnet.subnet[*]
   resource_group_id = local.resource_group_id
-  cloud_services = [
+  # cloud_services = [
+  #   {
+  #     service_name = "cloud-object-storage"
+  #   }
+  # ]
+  cloud_service_by_crn = [
     {
-      service_name = "sysdig"
+      crn  = module.cloud_monitoring.crn
     }
   ]
 }
