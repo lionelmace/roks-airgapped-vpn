@@ -148,6 +148,13 @@ resource "ibm_is_subnet" "subnet" {
   depends_on = [ibm_is_vpc_address_prefix.address_prefix]
 }
 
-output "subnet_ids" {
-  value = ibm_is_subnet.subnet[*].id
+output "subnet_list" {
+  value = [
+    for subnet in ibm_is_subnet.subnet : {
+      name = subnet.name
+      id   = subnet.id
+      zone = subnet.zone
+      cidr = subnet.ipv4_cidr_block
+    }
+  ]
 }

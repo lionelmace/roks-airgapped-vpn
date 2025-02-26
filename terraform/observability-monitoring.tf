@@ -65,7 +65,7 @@ module "vpes" {
   prefix            = "vpe"
   vpc_name          = ibm_is_vpc.vpc.name
   vpc_id            = ibm_is_vpc.vpc.id
-  subnet_zone_list  = var.subnet_ids
+  subnet_zone_list  = var.subnet_list
   resource_group_id = local.resource_group_id
   cloud_services = [
     {
