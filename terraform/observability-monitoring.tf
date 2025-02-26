@@ -69,7 +69,7 @@ module "vpes" {
   resource_group_id = local.resource_group_id
   cloud_services = [
     {
-      service_name = "sysdig-monitoring"
+      service_name = "sysdig"
     }
   ]
 }
