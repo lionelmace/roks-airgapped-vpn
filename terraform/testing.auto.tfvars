@@ -10,7 +10,7 @@
 ## VPC
 ##############################################################################
 vpc_address_prefix_management = "manual"
-vpc_enable_public_gateway     = false
+vpc_enable_public_gateway     = true
 
 
 ##############################################################################
