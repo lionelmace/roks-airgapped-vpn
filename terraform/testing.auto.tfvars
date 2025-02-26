@@ -38,11 +38,7 @@ openshift_update_all_workers = false
 
 
 ##############################################################################
-## Observability: Log Analysis (Mezmo) & Monitoring (Sysdig)
+## Observability: Monitoring (Sysdig)
 ##############################################################################
-# Available Plans: lite, 7-day, 14-day, 30-day
-# log_plan                 = "7-day"
-# log_enable_platform_logs = false
-
 sysdig_plan                    = "graduated-tier"
 sysdig_enable_platform_metrics = false
